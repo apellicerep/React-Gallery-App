@@ -1,10 +1,21 @@
-import React, { Component } from 'react'
+import React from 'react'
+import Fot from './Fot'
 
-class PhotoContainer extends Component {
 
-    render() {
-        return (
-            <p></p>
-        )
-    }
+//const test = "https://farm{farm-id}.staticflickr.com/{server-id}/{id}_{secret}.jpg"
+
+const PhotoContainer = (props) => {
+    console.log(props)
+
+    let fotos = props.data.map(foto =>
+        <Fot url={`https://farm${foto.farm}.staticflickr.com/${foto.server}/${foto.id}_${foto.secret}.jpg`} />
+    )
+
+    return (
+        <ul>
+            {fotos}
+        </ul>
+    )
 }
+
+export default PhotoContainer

@@ -1,7 +1,7 @@
 import React from 'react'
 
 const Nav = () => (
-    <nav class="main-nav">
+    <nav className="main-nav">
         <ul>
             <li><a href='#'>Cats</a></li>
             <li><a href='#'>Dogs</a></li>
