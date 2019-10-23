@@ -1,13 +1,18 @@
 import React from 'react'
+import { NavLink } from 'react-router-dom'
 
-const Nav = () => (
-    <nav className="main-nav">
-        <ul>
-            <li><a href='#'>Cats</a></li>
-            <li><a href='#'>Dogs</a></li>
-            <li><a href='#'>Computers</a></li>
-        </ul>
-    </nav>
-)
+const Nav = ({ searchApi }) => {
+
+    return (
+
+        <nav className="main-nav">
+            <ul>
+                <li><NavLink to="/car">Car</NavLink></li>
+                <li><NavLink to="/sunset">Sunset</NavLink></li>
+                <li><NavLink to="/bike">bike</NavLink></li>
+            </ul>
+        </nav>
+    )
+}
 
 export default Nav
