@@ -2,26 +2,32 @@ import React, { Component } from 'react'
 import Fot from './Fot'
 
 
-
 //const test = "https://farm{farm-id}.staticflickr.com/{server-id}/{id}_{secret}.jpg"
 
-const PhotoContainer = ({ searchApi, match, data, loading }) => {
+const PhotoContainer = ({ match, data }) => {
 
-    searchApi(match.params.id) //fetch api method in App.js
+    let tagPosition = 0;
+    console.log(data)
 
-    let photos = data.map(foto =>
-        <Fot key={foto.id} url={`https://farm${foto.farm}.staticflickr.com/${foto.server}/${foto.id}_${foto.secret}.jpg`} />
+    for (let i = 0; i < data.length; i++) {
+        //console.log(i)
+        if (data[i].config.url.includes(match.params.id)) {
+            tagPosition = i;
+            break;
+        }
+    }
+
+    let photos = data[tagPosition].data.photos.photo.map(foto =>
+        <Fot key={foto.id} url={`https://farm${foto.farm}.staticflickr.com/${foto.server}/${foto.id}_${foto.secret}_q.jpg`} />
     )
 
-
     return (
-        <React.Fragment>
+        <div className="photo-container">
             <h2>Images of:{match.params.id}</h2>
             <ul>
                 {photos}
             </ul>
-
-        </React.Fragment>
+        </div>
     )
 }
 

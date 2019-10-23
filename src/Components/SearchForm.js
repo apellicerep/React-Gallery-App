@@ -1,22 +1,31 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import apiKey from '../config.js'
 
 
 
-const SearchForm = ({ searchApi, history }) => {
+const SearchForm = ({ setData, setLoadingTrue, searchApi, history }) => {
 
     let SearchInput = React.createRef()
     //console.log(SearchInput.current.value)
+    const auxArray = []
+    const returnUrlApi = (tag) => `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=${tag}&per_page=4&format=json&nojsoncallback=1`
 
 
     let handleSubmit = (e) => {
-        let path = `/search/${SearchInput.current.value}`
         e.preventDefault()
-        //console.log(props)
+        setLoadingTrue()
+        let path = `/search/${SearchInput.current.value}`
+        auxArray.push(returnUrlApi(SearchInput.current.value))
+
+        searchApi(auxArray).then((response) => {
+            setData(response)
+        }).catch(error => {
+            console.log('Error fetching and parsing data', error);
+        });
         history.push(path)
         e.currentTarget.reset()
     }
-
 
     return (
         <form onSubmit={handleSubmit} className="search-form">

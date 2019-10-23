@@ -4,7 +4,6 @@ import { NavLink } from 'react-router-dom'
 const Nav = ({ searchApi }) => {
 
     return (
-
         <nav className="main-nav">
             <ul>
                 <li><NavLink to="/car">Car</NavLink></li>
