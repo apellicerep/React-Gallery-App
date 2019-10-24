@@ -7,7 +7,7 @@ import Fot from './Fot'
 const PhotoContainer = ({ match, data }) => {
 
     let tagPosition = 0;
-    console.log(data)
+
 
     for (let i = 0; i < data.length; i++) {
         //console.log(i)

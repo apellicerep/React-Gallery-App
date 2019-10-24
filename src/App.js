@@ -19,9 +19,9 @@ import NotFound from './Components/NotFound'
 
 //const test = "https://farm{farm-id}.staticflickr.com/{server-id}/{id}_{secret}.jpg"
 
-const urlApi2 = [`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=car&per_page=4&format=json&nojsoncallback=1`,
-`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=sunset&per_page=4&format=json&nojsoncallback=1`,
-`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=bike&per_page=4&format=json&nojsoncallback=1`]
+const urlApi2 = [`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=car&per_page=24&format=json&nojsoncallback=1`,
+`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=sunset&per_page=24&format=json&nojsoncallback=1`,
+`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=bike&per_page=24&format=json&nojsoncallback=1`]
 
 export default class App extends Component {
 
@@ -36,13 +36,16 @@ export default class App extends Component {
       this.setState({
         initialData: data,
         loading: false
+
       })
     }).catch(error => {
       console.log('Error fetching and parsing data', error);
+      this.setState({
+        errorFetch: true
+      })
+
     });
   }
-
-
 
   setLoadingTrue = () => {
     this.setState({
@@ -51,6 +54,7 @@ export default class App extends Component {
   }
 
   setData = (newData) => {
+
     this.setState((prevState => {
       return {
         initialData: [...prevState.initialData.slice(0, 2), ...newData],
@@ -58,6 +62,7 @@ export default class App extends Component {
       }
     })
     )
+    console.log("tres")
   }
 
 
@@ -71,36 +76,21 @@ export default class App extends Component {
   }
 
 
-  // performSearch = (tag) => {
-  //   const urlApi = `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=${tag}&per_page=24&format=json&nojsoncallback=1`
-  //   axios.get(urlApi)
-  //     .then(response => {
-  //       // console.log(response.data.photos.pages)
-  //       this.setState({
-  //         data: response.data.photos.photo,
-  //         loading: true
-  //       });
-  //     })
-  //     .catch(error => {
-  //       console.log('Error fetching and parsing data', error);
-  //     });
-  // }
-
-
   render() {
     return (
       <BrowserRouter>
         <React.Fragment>
           <Route render={({ history }) => <SearchForm setData={this.setData} setLoadingTrue={this.setLoadingTrue} searchApi={this.getFotos} history={history} />} />
           <Route render={() => <Nav />} />
-
           <Route exact path="/" render={() => <Redirect to="/car" />} />
-          {(this.state.loading) ? <p>Loading...</p> :
-            <Switch>
-              <Route exact path="/:id" render={({ match }) => <PhotoContainer data={this.state.initialData} match={match} />} />
-              <Route exact path="/search/:id" render={({ match }) => <PhotoContainer data={this.state.initialData} match={match} />} />
-              <Route component={NotFound} />
-            </Switch>}
+          <React.Fragment>
+            {(this.state.loading) ? <p>Loading...</p> :
+              <Switch>
+                <Route exact path="/:id" render={({ match }) => <PhotoContainer data={this.state.initialData} match={match} />} />
+                <Route exact path="/search/:id" render={({ match }) => <PhotoContainer data={this.state.initialData} match={match} />} />
+                <Route component={NotFound} />
+              </Switch>}
+          </React.Fragment>
         </React.Fragment>
       </BrowserRouter>
     )

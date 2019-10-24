@@ -7,27 +7,30 @@ import apiKey from '../config.js'
 const SearchForm = ({ setData, setLoadingTrue, searchApi, history }) => {
 
     let SearchInput = React.createRef()
-    //console.log(SearchInput.current.value)
     const auxArray = []
-    const returnUrlApi = (tag) => `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=${tag}&per_page=4&format=json&nojsoncallback=1`
+    const returnUrlApi = (tag) => `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=${tag}&per_page=24&format=json&nojsoncallback=1`
 
 
     let handleSubmit = (e) => {
         e.preventDefault()
         setLoadingTrue()
         let path = `/search/${SearchInput.current.value}`
+
         auxArray.push(returnUrlApi(SearchInput.current.value))
 
         searchApi(auxArray).then((response) => {
             setData(response)
+            history.push(path)
+
+
         }).catch(error => {
             console.log('Error fetching and parsing data', error);
         });
-        history.push(path)
         e.currentTarget.reset()
     }
 
     return (
+
         <form onSubmit={handleSubmit} className="search-form">
             <input type="search" ref={SearchInput} name="search" placeholder="Search" required />
             <button type="submit" className="search-button">
