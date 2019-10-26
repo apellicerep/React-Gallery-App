@@ -86,7 +86,10 @@ export default class App extends Component {
           <React.Fragment>
             {(this.state.loading) ? <p>Loading...</p> :
               <Switch>
-                <Route exact path="/:id" render={({ match }) => <PhotoContainer data={this.state.initialData} match={match} />} />
+                {/*<Route exact path="/:id" render={({ match }) => <PhotoContainer data={this.state.initialData} match={match} />} />*/}
+                <Route exact path="/car" render={({ match }) => <PhotoContainer data={this.state.initialData} route="car" />} />
+                <Route exact path="/sunset" render={({ match }) => <PhotoContainer data={this.state.initialData} route="sunset" />} />
+                <Route exact path="/bike" render={({ match }) => <PhotoContainer data={this.state.initialData} route="bike" />} />
                 <Route exact path="/search/:id" render={({ match }) => <PhotoContainer data={this.state.initialData} match={match} />} />
                 <Route component={NotFound} />
               </Switch>}
