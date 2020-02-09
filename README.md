@@ -9,6 +9,8 @@ I have done:
 * Used the tool Axios to fetch data from the Flickr API and use it to display images in the app.
 * Add logic to handle the search input.
 
+![.](https://github.com/apellicerep/React-Gallery-App/blob/master/react-gallery-appgif.gif)
+
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
